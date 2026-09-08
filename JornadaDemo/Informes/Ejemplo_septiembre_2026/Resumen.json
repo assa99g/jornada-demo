@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "tipo": "DEMOSTRACIÓN",
+  "desde": "2026-09-01",
+  "hasta": "2026-09-30",
+  "configuracion": "e67739ed2e0491d2",
+  "semilla": "ALMERIA-DEMO-2026",
+  "archivos": [
+    "Resumen_general.pdf",
+    "Registro_EMP001.pdf",
+    "Registro_EMP002.pdf",
+    "Registro_EMP003.pdf"
+  ],
+  "totales_minutos": {
+    "planned": 23430,
+    "ordinary": 23376,
+    "extra": 60,
+    "total": 23436,
+    "pause": 510,
+    "unpaid": 510,
+    "deviation": -54
+  }
+}
