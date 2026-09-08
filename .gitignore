@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+node_modules
+.build/
+JornadaDemo/runtime/
+JornadaDemo/Error.log
+*.inspect.ndjson
+JornadaDemo-Windows-x64.zip
+JornadaDemo/Informes/*
+!JornadaDemo/Informes/Ejemplo_septiembre_2026/
