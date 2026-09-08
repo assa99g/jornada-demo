@@ -1,0 +1,150 @@
+JORNADA · DEMOSTRACIÓN DE REGISTRO HORARIO
+Versión 1.0.0 · Almería · Español
+
+INICIO EN WINDOWS
+
+1. Extraiga TODO el contenido de JornadaDemo-Windows-x64.zip en una carpeta
+   con permisos de escritura, por ejemplo Documentos\JornadaDemo.
+2. Abra JornadaDemo y haga doble clic en Iniciar.cmd.
+3. Seleccione fechas y empleado. Pulse Actualizar vista previa.
+4. Elija Individuales y general, Solo individuales o Solo general.
+5. Pulse Generar PDF y después Abrir carpeta de informes.
+
+Para un día, seleccione Desde y pulse Un solo día.
+Para el mes de Desde, pulse Mes completo.
+
+No necesita instalar Python ni conectar a internet. Se incluye el entorno
+de ejecución en runtime. No se necesita Excel para generar los informes;
+para editar los .xlsx, utilice Excel u otro editor compatible instalado.
+El programa no modifica los .xlsx de entrada.
+
+Plataforma del paquete: Windows 10/11 de 64 bits (Intel/AMD, x64).
+Esta distribución no es una aplicación ejecutable para macOS ni Windows de 32 bits.
+No mueva ni borre runtime ni jornada. El inicio no solicita permisos de administrador.
+
+ARCHIVOS JUNTO AL PROGRAMA
+
+Empresa.xlsx
+  Hoja Empresa. Nombre, CIF_NIF, Dirección y Municipio de una sola empresa.
+  Semilla identifica la serie de datos simulados. Manténgala igual para obtener
+  las mismas marcas por empleado, día y tramo, con la misma configuración.
+  Variación admite:
+    Simétrica: entrada y salida entre 10 minutos antes y 10 minutos después.
+    Antes y después: entrada entre -10 y 0; salida entre 0 y +10 minutos.
+
+Empleados.xlsx
+  ID único (letras, números, guion o guion bajo), Nombre, DNI_NIE, Puesto,
+  Alta, Baja y Horario. La baja vacía significa alta vigente.
+  Se incluyen ambos días de alta y baja. Fuera de ellos no se generan filas.
+
+Horarios.xlsx
+  Hoja Turnos: Horario, Día (1 lunes ... 7 domingo), Tramo (1 a 4),
+  Entrada, Salida, Pausa_min, Pausa_pagada y Trabaja_festivos.
+  Cada fila representa un tramo de un día de un horario semanal.
+  Los días sin filas son de descanso. Para jornada partida, utilice dos filas.
+  La salida menor que la entrada pertenece al día siguiente.
+  Pausa_min es la duración total de las pausas dentro del tramo.
+  Pausa_pagada = Sí: se incluye en el cómputo. No: se descuenta.
+  El intervalo entre tramos se excluye del cómputo.
+  Trabaja_festivos = Sí: ese tramo también se genera en un festivo.
+  La pausa no tiene marcas de inicio y fin propias en esta versión.
+
+  Hoja Asignaciones: ID, Mes (AAAA-MM), Horario.
+  Es opcional añadir filas. Una fila sustituye el horario del empleado durante
+  todo el mes indicado. No admite cambios de horario a mitad de mes.
+
+Festivos.xlsx
+  Hoja Festivos: Fecha, Nombre, Ámbito y Fuente.
+  Se incluyen las 14 fiestas nacionales, autonómicas y locales de Almería 2026.
+  Los festivos que coinciden con sábado permanecen en esa fecha.
+  Para ampliar años, añada sus fechas y una fila en Cobertura con Año,
+  Municipio = Almería y Revisado = Sí, solo cuando el calendario esté completo.
+  La aplicación no descarga ni actualiza calendarios por internet.
+
+Incidencias.xlsx
+  ID, Desde, Hasta, Tipo, Reducción_min y Observaciones.
+  Tipos: Vacaciones, Baja médica, Ausencia, Permiso y Jornada reducida.
+  Las cuatro primeras anulan los tramos ordinarios del intervalo, con ambos
+  extremos incluidos. Use Reducción_min = 0 para esas ausencias.
+  Jornada reducida acorta el último tramo del día en los minutos indicados.
+  La reducción debe dejar más de 20 minutos de trabajo después de la pausa.
+  No se permiten incidencias solapadas para el mismo empleado.
+  Para no tener incidencias, deje las filas de datos vacías y conserve la hoja.
+
+Extras.xlsx (OPCIONAL)
+  ID, Fecha, Inicio, Fin y Motivo.
+  Las horas extra se añaden exactamente como figuran aquí, sin variación.
+  Si retira o cambia de nombre el archivo, no se añaden horas extra.
+  Un archivo presente con errores produce un aviso; no se ignora en silencio.
+  No se admiten solapamientos con horas ordinarias ni con otras horas extra,
+  ni extras durante ausencias completas o fuera del período de alta.
+  Se permiten extras en días de descanso o festivos.
+  No se calcula su remuneración ni compensación con descanso.
+
+EDICIÓN DE EXCEL
+
+Los encabezados están en la fila 5 y los datos comienzan en la fila 6.
+Conserve los nombres de archivos, hojas y columnas. Puede añadir filas.
+Use valores directos, no fórmulas. Fechas: DD/MM/AAAA; horas: HH:MM.
+Guarde los cambios antes de recargar. Si los archivos cambian después de la
+vista previa, el programa pide actualizarla antes de exportar.
+Los ejemplos incluyen tres empleados ficticios, vacaciones, reducción de
+jornada y una hora extraordinaria. Sustitúyalos para preparar otra demostración.
+
+CÁLCULO Y PDF
+
+Ordinarias = duración de los tramos simulados menos pausas no pagadas.
+Planificadas = duración del horario aplicable menos pausas no pagadas.
+Total = ordinarias + extras.
+Desviación = ordinarias - planificadas. No se considera automáticamente extra.
+Las ausencias completas tienen cero horas planificadas para ese día en el informe.
+Las marcas se calculan con precisión de un minuto. Se limitan junto a tramos
+contiguos o extras para evitar solapamientos y respetar el rango de variación.
+
+Las horas corresponden al reloj civil local de Almería. En turnos nocturnos,
+(+1) indica el día siguiente; (-1), el anterior. Todos los tramos se atribuyen
+a la fecha de inicio del turno planificado. No se ajusta la duración por el
+cambio estacional de hora. No es un sistema de fichajes reales ni de nóminas.
+
+Cada exportación crea una carpeta nueva en Informes. Incluye:
+  - Registro_EMPxxx.pdf, un archivo por empleado, separado por meses.
+  - Resumen_general.pdf, totales por empleado y por día de la empresa.
+  - Configuracion, copia de los Excel utilizados.
+  - Resumen.json, totales en minutos e identificador de la configuración.
+Los PDF pueden ocupar varias páginas. Los encabezados de tabla se repiten.
+El resumen general incluye solo los empleados seleccionados en la vista previa.
+Se admiten períodos de hasta 366 días por exportación.
+
+DEMOSTRACIÓN
+
+Las marcas son sintéticas y los PDF están identificados como DATOS SIMULADOS.
+Las líneas de firma se muestran vacías. La empresa y los empleados de ejemplo
+son ficticios. Los PDF no acreditan jornadas efectivamente trabajadas.
+
+DIAGNÓSTICO
+
+Si no se abre, compruebe que extrajo todo el ZIP. Ejecute Diagnostico.cmd para
+ver el error en una consola. Verificar.cmd comprueba los componentes, lee la
+configuración y crea una exportación de prueba en una carpeta temporal.
+Los errores inesperados de la aplicación se guardan en Error.log.
+
+PRIVACIDAD Y COPIAS
+
+La aplicación no usa servidores ni envía datos a internet. Trabaja en la carpeta
+local. Cada equipo puede tener su copia independiente; no hay sincronización
+multiusuario. Para conservar una demostración, copie la carpeta completa.
+
+FUENTES DEL CALENDARIO Y DEL MODELO
+
+Andalucía 2026, Decreto 101/2025:
+https://www.juntadeandalucia.es/boja/2025/93/1.html
+Fiestas locales de Almería: 24/06/2026 y 29/08/2026:
+https://www.juntadeandalucia.es/boja/2025/197/28
+Modelo de referencia consultado (estructura de campos, diseño propio):
+https://www.wonder.legal/es/creation-modele/hoja-registro-jornada-trabajo
+
+ESTADO DE VERIFICACIÓN
+
+El motor, la lectura de Excel, la exportación PDF y el interfaz se han probado
+en macOS con los mismos archivos fuente. El paquete contiene bibliotecas para
+Windows x64. No se ha ejecutado en un equipo Windows durante esta preparación.

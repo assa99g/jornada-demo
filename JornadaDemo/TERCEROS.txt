@@ -1,0 +1,29 @@
+COMPONENTES INCLUIDOS
+
+Python 3.13.15, distribución embebida oficial para Windows x64.
+https://www.python.org/
+Licencia PSF: runtime/LICENSE.txt.
+
+Qt / PySide6-Essentials 6.10.2 y shiboken6 6.10.2.
+https://www.qt.io/qt-for-python
+Licencias LGPLv3/GPLv3 y otras, según el componente.
+Se distribuyen como bibliotecas dinámicas reemplazables, sin modificaciones.
+Código fuente de Qt for Python:
+https://code.qt.io/cgit/pyside/pyside-setup.git/tag/?h=v6.10.2
+Código fuente de Qt:
+https://download.qt.io/official_releases/qt/6.10/6.10.2/single/
+Las licencias de los paquetes figuran en sus directorios dist-info y PySide6.
+
+openpyxl 3.1.5 · MIT · https://openpyxl.readthedocs.io/
+et-xmlfile 2.0.0 · MIT · https://pypi.org/project/et-xmlfile/
+ReportLab 4.4.10 · BSD · https://www.reportlab.com/
+Pillow 12.3.0 · MIT-CMU y licencias de componentes · https://python-pillow.org/
+charset-normalizer 3.5.1 · MIT · https://pypi.org/project/charset-normalizer/
+
+Se conservan los metadatos y textos de licencia distribuidos por cada paquete
+en runtime/Lib/site-packages. Se incluyen las fuentes Bitstream Vera de ReportLab,
+con su licencia en el directorio de fuentes. Los componentes de Microsoft Runtime
+incluidos por los distribuidores conservan sus condiciones originales.
+
+El código de Jornada se entrega legible en jornada/*.py, iniciar.py y verificar.py.
+No hay cifrado ni restricciones técnicas para sustituir bibliotecas compatibles.
